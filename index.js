@@ -10,7 +10,9 @@ app.use(cors())
 app.use(bodyParser.json())
 const port = 4000
 
-
+app.get('/',(req,res) => {
+    res.send('working properly')
+})
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     const productsCollection = client.db("ema-john-store").collection("products");
