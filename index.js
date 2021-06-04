@@ -8,7 +8,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
-const port = 4000
+const port = 5000
 
 app.get('/',(req,res) => {
     res.send('working properly')
@@ -27,7 +27,8 @@ client.connect(err => {
         })
     })
     app.get('/products',(req,res) => {
-        productsCollection.find({})
+        const search = req.query.search;
+        productsCollection.find({name:{$regex:search}})
         .toArray((err,documents) => {
             res.send(documents)
         })
